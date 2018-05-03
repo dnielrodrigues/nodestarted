@@ -1,0 +1,22 @@
+{
+  "name": "nodestarted",
+  "version": "1.0.0",
+  "description": "NodeJS started",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dnielrodrigues/nodestarted.git"
+  },
+  "author": "@dnielrodrigues",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dnielrodrigues/nodestarted/issues"
+  },
+  "homepage": "https://github.com/dnielrodrigues/nodestarted#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
