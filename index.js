@@ -18,7 +18,7 @@ var app = express();
 
 // host
 app.listen(3000,function(){
-	console.log('Rordando...');
+	console.log('Rodando...');
 });
 
 
@@ -27,3 +27,4 @@ app.get('/teste',function(req,res){
 	console.log('rota: /teste');
 	res.send('OK...');
 });
+

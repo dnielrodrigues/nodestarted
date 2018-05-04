@@ -17,3 +17,9 @@ var app = express();
 ´´´
 
 
+Executar servidor:
+´´´
+nodemon app.js
+´´´
+
+
