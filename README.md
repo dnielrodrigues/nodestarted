@@ -7,6 +7,7 @@ Dependências Iniciais:
 ´´´
 npm install --save express
 sudo npm install -g nodemon
+npm install --save consign
 ´´´
 
 
