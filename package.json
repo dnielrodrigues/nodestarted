@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/dnielrodrigues/nodestarted#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "consign": "^0.1.6",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "pg": "^7.4.2"
   }
 }
