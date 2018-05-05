@@ -5,11 +5,12 @@
 
 Dependências Iniciais:  
 ´´´
-npm install --save express
 sudo npm install -g nodemon
+npm install --save express
 npm install --save consign
 npm install --save body-parser
 npm install --save pg
+npm install --save express-validator
 ´´´
 
 
@@ -29,7 +30,7 @@ nodemon app.js
 
 # Usando PgSQL
 
-
+---
 
 
 
@@ -46,7 +47,7 @@ curl http://localhost:3000/pagamentos/pagamento \
 
 POST com formatação da saída:
 ´´´
-curl http://localhost:3000/pagamentos/pagamento \
+curl http://dev.com:3000/pagamentos/pagamento \
   	-X POST\
   	-v \
   	-H "Content-type: application/json" \
