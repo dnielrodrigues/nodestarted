@@ -11,7 +11,7 @@ module.exports = function(){
 
 	// consign - gerenciar escopo de arquivos
 	consign()
-		.include('controllers')
+		.include('routes')
 		.then('storage')
 		.into(app);
 
