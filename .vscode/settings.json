@@ -1,0 +1,6 @@
+{
+	// Code Action kinds to be run on save.
+	"editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+    },
+}
