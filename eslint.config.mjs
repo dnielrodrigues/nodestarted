@@ -1,8 +1,18 @@
 // @ts-check
-import eslint from '@eslint/js';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import { FlatCompat } from '@eslint/eslintrc'
+import eslint from '@eslint/js'
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import globals from 'globals'
+import { dirname } from 'path'
+import tseslint from 'typescript-eslint'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname
+})
 
 export default tseslint.config(
   {
@@ -24,11 +34,27 @@ export default tseslint.config(
       },
     },
   },
+  ...compat.extends('@rocketseat/eslint-config/node'),
   {
     rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
+
+      // nestjs default
+      '@typescript-eslint/no-explicit-any': 'off', // allow any as type
       '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn'
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+
+      // custom
+      curly: 'off', // allow code blocks without brackets (ex: "if" without {})
+      semi: ['error', 'never'], // dont accept line end semicolon
+      'prettier/prettier': [
+        'error',
+        {
+          singleQuote: true, // use single quotes
+          trailingComma: 'none', // delete comma after the last object attribute
+          semi: false, // delete line end semicolon
+          tabWidth: 2
+        }
+      ]
     },
   },
-);
+)
