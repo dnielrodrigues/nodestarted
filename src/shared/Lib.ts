@@ -16,12 +16,12 @@ export function debug(obj: any, msg = 'debug') {
   console.log(separator + 'END - ' + msg)
 }
 
-export function isJsonString(str: any) {
+export function isJsonString(str: any): boolean {
   if (isString(str)) {
     try {
       JSON.parse(String(str))
       return true
-    } catch (error) {
+    } catch {
       return false
     }
   }
@@ -33,31 +33,38 @@ export function isString(str: any) {
 }
 
 // TODO - refactor
-export function isArray(str: string) {
+export function isArray(str: string): boolean {
   try {
-    const arr = JSON.parse(str)
+    const arr = JSON.parse(str) as unknown
     if (Array.isArray(arr)) return true
-  } catch (error) {
+  } catch {
     return false
   }
   return true
 }
 
 // test plain object
-export function isPlainObject(obj) {
-  return obj !== null && typeof obj === 'object' && obj.constructor === Object
+export function isPlainObject(obj: any): obj is { [key: string]: any } {
+  return (
+    obj !== null &&
+    typeof obj === 'object' &&
+    Object.prototype.toString.call(obj) === '[object Object]'
+  )
 }
 
 // copy all the key/value data from an object to another
-export function copyObjData(obj) {
-  return JSON.parse(JSON.stringify(obj))
+export function copyObjData<T>(obj: T): T {
+  return JSON.parse(JSON.stringify(obj)) as T
 }
 
 // filter object (returns just the keys in second param)
-export function filterObject(obj: any, keys: string[]) {
-  const res: any = {}
-  for (const key in obj) {
-    if (keys.includes(key)) {
+export function filterObject<T extends object, K extends keyof T>(
+  obj: T,
+  keys: K[]
+): Pick<T, K> {
+  const res = {} as Pick<T, K>
+  for (const key of keys) {
+    if (key in obj) {
       res[key] = obj[key]
     }
   }

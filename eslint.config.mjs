@@ -29,6 +29,7 @@ export default tseslint.config(
       },
       sourceType: 'commonjs',
       parserOptions: {
+        project: './tsconfig.json',
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
@@ -44,6 +45,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 'warn',
 
       // custom
+      'no-void': 'off',
       curly: 'off', // allow code blocks without brackets (ex: "if" without {})
       semi: ['error', 'never'], // dont accept line end semicolon
       'prettier/prettier': [
