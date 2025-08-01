@@ -39,12 +39,14 @@ export default tseslint.config(
   {
     rules: {
 
-      // nestjs default
       '@typescript-eslint/no-explicit-any': 'off', // allow any as type
-      '@typescript-eslint/no-floating-promises': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn',
-
-      // custom
+      '@typescript-eslint/no-unsafe-assignment': 'off', // allow any
+      '@typescript-eslint/no-unsafe-member-access': 'off', // allow properties of any
+      '@typescript-eslint/no-unsafe-return': 'off', // allow return as any
+      '@typescript-eslint/no-unsafe-call': 'off', // allow any vars
+      '@typescript-eslint/no-unsafe-argument': 'off', // allow any as arguments
+      '@typescript-eslint/only-throw-error': 'off', // allow any as errors
+      'no-throw-literal': 'off', // allow error objects
       'no-void': 'off',
       curly: 'off', // allow code blocks without brackets (ex: "if" without {})
       semi: ['error', 'never'], // dont accept line end semicolon
