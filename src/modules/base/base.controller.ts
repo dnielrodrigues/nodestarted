@@ -6,11 +6,11 @@ export class BaseController {
   constructor(private readonly baseService: BaseService) {}
 
   @Get()
-  list(@Param('model') model: string): any {
+  async list(@Param('model') model: string): Promise<any> {
     // TODO - middleware
     try {
       this.baseService.setModel(model)
-      return this.baseService.list()
+      return await this.baseService.list()
     } catch (error) {
       return error.name
     }

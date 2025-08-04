@@ -1,15 +1,21 @@
+import { PrismaService } from '@/shared/prisma.service'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class BaseService {
   model?: string
 
+  constructor(private readonly prisma: PrismaService) {}
+
   // readers
   get(id: string) {
     return { model: this.model, id }
   }
 
-  list(opt?: object) {
+  async list(opt?: object) {
+    if (this.model === 'user') {
+      return this.prisma.user.findMany()
+    }
     return { model: this.model, opt }
   }
 
