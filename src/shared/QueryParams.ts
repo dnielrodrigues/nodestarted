@@ -1,7 +1,5 @@
 import { isJsonString, isString } from '@/shared/Lib'
-import { Injectable } from '@nestjs/common'
 
-@Injectable()
 export class QueryParams {
   take?: number
   skip?: number
@@ -18,8 +16,7 @@ export class QueryParams {
     'include'
   ]
 
-  async parseRequest(request) {
-    const params: any = await this.getQueryParamsFromRequest(request)
+  parseParams(params) {
     return this.formatLimit(params)
       .formatOffset(params)
       .formatOrderBy(params)
@@ -28,17 +25,22 @@ export class QueryParams {
       .get()
   }
 
-  async getQueryParamsFromRequest(request) {
+  parseRequest(request) {
+    const params: any = this.getQueryParamsFromRequest(request)
+    return this.parseParams(params)
+  }
+
+  getQueryParamsFromRequest(request) {
     const method = request.method
     const res = {}
     if (method === 'POST') {
-      const data = await request.json()
+      const data = request.body
       this.paramsAllowed.forEach((param) => {
         res[param] = data[param] || null
       })
     } else if (method === 'GET') {
       this.paramsAllowed.forEach((param) => {
-        res[param] = request.nextUrl.searchParams.get(param) || null
+        res[param] = request.query[param] || null
       })
     }
     return res

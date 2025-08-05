@@ -13,30 +13,3 @@ export function getModel<T extends PrismaModel>(
   }
   return res
 }
-
-// import { Injectable, OnModuleDestroy, OnModuleInit } from '@nestjs/common'
-// import { PrismaClient } from '@prisma/client'
-
-// @Injectable()
-// export class Database
-//   extends PrismaClient
-//   implements OnModuleInit, OnModuleDestroy
-// {
-//   constructor() {
-//     super()
-//   }
-
-//   async onModuleInit() {
-//     await this.$connect()
-//   }
-
-//   async onModuleDestroy() {
-//     await this.$disconnect()
-//   }
-
-//   getModel(str: string) {
-//     const res = this[str as keyof typeof this]
-//     if (res) return res
-//     else throw { error: 'not_found', param: 'model' }
-//   }
-// }

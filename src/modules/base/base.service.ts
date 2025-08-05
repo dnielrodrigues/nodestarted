@@ -1,13 +1,10 @@
-// import { Database } from '@/shared/Database'
 import { getModel } from '@/shared/Database'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class BaseService {
-  model?: string
+  model: string
   errorModel = { error: 'invalid_param', param: 'model' }
-
-  // constructor(private readonly db: Database) {}
 
   // readers
   get(id: string) {
@@ -15,10 +12,8 @@ export class BaseService {
   }
 
   async list(opt?: object) {
-    if (!this.model) throw this.errorModel
     const model = getModel(this.model)
-    console.log(opt)
-    return await model.findMany()
+    return await model.findMany(opt)
   }
 
   // actions
