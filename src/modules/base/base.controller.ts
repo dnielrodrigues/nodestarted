@@ -36,7 +36,7 @@ export class BaseController {
       const result = await this.baseService.list(params)
       res.status(200).json(result)
     } catch (error) {
-      return this.errors.response(error, res)
+      this.errors.response(error, res)
     }
   }
 
@@ -53,37 +53,43 @@ export class BaseController {
       const result = await this.baseService.list(params)
       res.status(200).json(result)
     } catch (error) {
-      return this.errors.response(error, res)
+      this.errors.response(error, res)
     }
   }
 
   @Get(':id')
   get(
     @Param() { model, id }: { model: string; id: string },
+    @Req() req: Request,
     @Res() res: Response
   ): any {
     // TODO - middleware
     try {
       this.baseService.setModel(model)
-      const result = this.baseService.get(id)
+      const opt = this.queryParams
+        .formatInclude({ include: req.query.include })
+        .formatWhere({ where: { id: Number(id) } })
+        .get()
+      const result = await this.baseService.get(opt)
       res.status(200).json(result)
     } catch (error) {
-      return this.errors.response(error, res)
+      this.errors.response(error, res)
     }
   }
 
   @Post()
   create(
-    @Param('model') model: string, @Body() body: any,
+    @Param('model') model: string,
+    @Req() req: Request,
     @Res() res: Response
   ) {
     // TODO - middleware
     try {
       this.baseService.setModel(model)
-      const result = this.baseService.save(body)
+      const result = this.baseService.save(req.body)
       res.status(200).json(result)
     } catch (error) {
-      return this.errors.response(error, res)
+      this.errors.response(error, res)
     }
   }
 
@@ -100,7 +106,7 @@ export class BaseController {
       const result = this.baseService.save(obj)
       res.status(200).json(result)
     } catch (error) {
-      return this.errors.response(error, res)
+      this.errors.response(error, res)
     }
   }
 
@@ -115,7 +121,7 @@ export class BaseController {
       const result = this.baseService.delete(id)
       res.status(200).json(result)
     } catch (error) {
-      return this.errors.response(error, res)
+      this.errors.response(error, res)
     }
   }
 }

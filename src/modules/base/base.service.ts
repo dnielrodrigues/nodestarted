@@ -1,5 +1,5 @@
-import { getModel } from '@/shared/Database'
-import { Injectable } from '@nestjs/common'
+import { getModel } from '@/shared/Database';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class BaseService {
@@ -7,8 +7,9 @@ export class BaseService {
   errorModel = { error: 'invalid_param', param: 'model' }
 
   // readers
-  get(id: string) {
-    return { model: this.model, id }
+  async get(opt: any) {
+    const model = getModel(this.model)
+    return await model.findUnique(opt)
   }
 
   async list(opt?: object) {
