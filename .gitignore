@@ -56,9 +56,5 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # database files
-/database/dump.sh
-/database/psql.sh
-/database/restore.sh
-/database/run.sh
 /database/run.sql
 /generated/prisma

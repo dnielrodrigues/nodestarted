@@ -1,6 +1,49 @@
 {
-	// Code Action kinds to be run on save.
-	"editor.codeActionsOnSave": {
-        "source.organizeImports": "explicit"
-    },
+  // Code Action kinds to be run on save.
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+
+  // identations
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "[javascript]": {
+    "editor.tabSize": 2
+  },
+  "[typescript]": {
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.tabSize": 2
+  },
+
+  // "editor.tabSize": 2,
+  // "editor.insertSpaces": true,
+  // "editor.detectIndentation": false,
+  // "[javascript]": {
+  //   "editor.defaultFormatter": "vscode.typescript-language-features",
+  //   "editor.tabSize": 2
+  // },
+  // "[typescript]": {
+  //   "editor.defaultFormatter": "vscode.typescript-language-features",
+  //   "editor.tabSize": 2
+  // },
+  // "[json]": {
+  //   "editor.tabSize": 2
+  // },
+  // "[html]": {
+  //   "editor.tabSize": 2
+  // },
+  // "[css]": {
+  //   "editor.tabSize": 2
+  // },
+  // "[scss]": {
+  //   "editor.tabSize": 2
+  // },
+
+  // prettier
+  // "prettier.tabWidth": 2,
+  // "prettier.useTabs": false
+
 }
