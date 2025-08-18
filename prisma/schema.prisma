@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  // output   = "../node_modules/.prisma/client" // DELETE TO FIX BUG
 }
 
 datasource db {
@@ -15,7 +14,7 @@ model acoes {
   path          String?      @db.VarChar(255)
   method        String?      @db.VarChar(7)
   createdat     DateTime     @default(now()) @db.Timestamp(6)
-  updatedat     DateTime?    @db.Timestamp(6)
+  updatedat     DateTime     @updatedAt @db.Timestamp(6)
   aplicativos   aplicativos  @relation(fields: [aplicativo_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   permissoes    permissoes[]
 
@@ -27,7 +26,7 @@ model aplicativos {
   nome       String       @unique @db.VarChar(255)
   slug       String       @unique @db.VarChar(255)
   createdat  DateTime     @default(now()) @db.Timestamp(6)
-  updatedat  DateTime?    @db.Timestamp(6)
+  updatedat  DateTime     @updatedAt @db.Timestamp(6)
   acoes      acoes[]
   permissoes permissoes[]
 }
@@ -38,7 +37,7 @@ model entidades {
   cod        String       @unique @db.VarChar(8)
   doc        String?      @unique @db.VarChar(14)
   createdat  DateTime     @default(now()) @db.Timestamp(6)
-  updatedat  DateTime?    @db.Timestamp(6)
+  updatedat  DateTime     @updatedAt @db.Timestamp(6)
   permissoes permissoes[]
 }
 
@@ -49,7 +48,7 @@ model permissoes {
   entidade_id   String      @db.Uuid
   acao_id       String      @db.Uuid
   createdat     DateTime    @default(now()) @db.Timestamp(6)
-  updatedat     DateTime?   @db.Timestamp(6)
+  updatedat     DateTime    @updatedAt @db.Timestamp(6)
   acoes         acoes       @relation(fields: [acao_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   aplicativos   aplicativos @relation(fields: [aplicativo_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   entidades     entidades   @relation(fields: [entidade_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -67,6 +66,6 @@ model usuarios {
   pass       String       @db.VarChar(255)
   token      String?      @db.VarChar(255)
   createdat  DateTime     @default(now()) @db.Timestamp(6)
-  updatedat  DateTime?    @db.Timestamp(6)
+  updatedat  DateTime     @updatedAt @db.Timestamp(6)
   permissoes permissoes[]
 }

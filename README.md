@@ -66,7 +66,6 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 ```
 
 ## About ORM
-
 There is a bug on "npx prisma generate" command. To solve this change the "schema.prisma" file:
 ```
 generator client {
@@ -74,7 +73,10 @@ generator client {
   // output   = "../generated/prisma" // delete this line or replace for:
   output   = "../node_modules/.prisma/client"
 }
-```
+```  
+To set updatedat fields, insert "@updatedAt" in each field manually.  
+Replace: `updatedat  DateTime  @db.Timestamp(6)`
+For: `updatedat  DateTime  @updatedAt @db.Timestamp(6)`
 
 ## Deployment
 
