@@ -1,4 +1,5 @@
 import { ErrorService } from '@/modules/error/error.service'
+import { UUIDPipe } from '@/pipes/uuid.pipe'
 import { QueryParams } from '@/shared/QueryParams'
 import {
   Body,
@@ -62,7 +63,8 @@ export class BaseController {
   // select by id
   @Get(':id')
   async get(
-    @Param() { model, id }: { model: string; id: string },
+    @Param('id', UUIDPipe) id: string,
+    @Param('model') model: string,
     @Req() req: Request,
     @Res() res: Response
   ): Promise<any> {
@@ -119,7 +121,8 @@ export class BaseController {
   // delete
   @Delete(':id')
   delete(
-    @Param() { model, id }: { model: string; id: string },
+    @Param('id', UUIDPipe) id: string,
+    @Param('model') model: string,
     @Res() res: Response
   ): any {
     // TODO - middleware

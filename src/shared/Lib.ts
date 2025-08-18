@@ -52,6 +52,13 @@ export function isPlainObject(obj: any): obj is { [key: string]: any } {
   )
 }
 
+// test UUID string
+export function isUUIDv4(val: string): boolean {
+  const regex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+  return regex.test(val)
+}
+
 // copy all the key/value data from an object to another
 export function copyObjData<T>(obj: T): T {
   return JSON.parse(JSON.stringify(obj)) as T
