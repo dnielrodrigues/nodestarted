@@ -19,10 +19,11 @@ export class BaseController {
   queryParams = new QueryParams()
 
   constructor(
-    private readonly baseService: BaseService,
+    private readonly service: BaseService,
     private errors: ErrorService
   ) {}
 
+  // list table
   @Get()
   async list(
     @Param('model') model: string,
@@ -31,15 +32,16 @@ export class BaseController {
   ): Promise<any> {
     // TODO - middleware
     try {
-      this.baseService.setModel(model)
+      this.service.setModel(model)
       const params = this.queryParams.parseParams(req.query)
-      const result = await this.baseService.list(params)
+      const result = await this.service.list(params)
       res.status(200).json(result)
     } catch (error) {
       this.errors.response(error, res)
     }
   }
 
+  // filter table
   @Post('filter')
   async filter(
     @Param('model') model: string,
@@ -48,35 +50,38 @@ export class BaseController {
   ): Promise<any> {
     // TODO - middleware
     try {
-      this.baseService.setModel(model)
+      this.service.setModel(model)
       const params = this.queryParams.parseParams(req.body)
-      const result = await this.baseService.list(params)
+      const result = await this.service.list(params)
       res.status(200).json(result)
     } catch (error) {
       this.errors.response(error, res)
     }
   }
 
+  // select by id
   @Get(':id')
-  get(
+  async get(
     @Param() { model, id }: { model: string; id: string },
     @Req() req: Request,
     @Res() res: Response
-  ): any {
+  ): Promise<any> {
     // TODO - middleware
     try {
-      this.baseService.setModel(model)
+      this.service.setModel(model)
       const opt = this.queryParams
         .formatInclude({ include: req.query.include })
-        .formatWhere({ where: { id: Number(id) } })
+        .formatWhere({ where: { id } })
         .get()
-      const result = await this.baseService.get(opt)
+      delete opt.take
+      const result = await this.service.get(opt)
       res.status(200).json(result)
     } catch (error) {
       this.errors.response(error, res)
     }
   }
 
+  // insert
   @Post()
   create(
     @Param('model') model: string,
@@ -85,14 +90,15 @@ export class BaseController {
   ) {
     // TODO - middleware
     try {
-      this.baseService.setModel(model)
-      const result = this.baseService.save(req.body)
+      this.service.setModel(model)
+      const result = this.service.save(req.body)
       res.status(200).json(result)
     } catch (error) {
       this.errors.response(error, res)
     }
   }
 
+  // update
   @Put(':id')
   update(
     @Param() { model, id }: { model: string; id: string },
@@ -102,14 +108,15 @@ export class BaseController {
     // TODO - middleware
     try {
       const obj = { ...body, id }
-      this.baseService.setModel(model)
-      const result = this.baseService.save(obj)
+      this.service.setModel(model)
+      const result = this.service.save(obj)
       res.status(200).json(result)
     } catch (error) {
       this.errors.response(error, res)
     }
   }
 
+  // delete
   @Delete(':id')
   delete(
     @Param() { model, id }: { model: string; id: string },
@@ -117,8 +124,8 @@ export class BaseController {
   ): any {
     // TODO - middleware
     try {
-      this.baseService.setModel(model)
-      const result = this.baseService.delete(id)
+      this.service.setModel(model)
+      const result = this.service.delete(id)
       res.status(200).json(result)
     } catch (error) {
       this.errors.response(error, res)

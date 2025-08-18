@@ -57,6 +57,25 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## About UUID
+
+Config UUID on postgresql:
+```sql
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+```
+
+## About ORM
+
+There is a bug on "npx prisma generate" command. To solve this change the "schema.prisma" file:
+```
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../generated/prisma" // delete this line or replace for:
+  output   = "../node_modules/.prisma/client"
+}
+```
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
