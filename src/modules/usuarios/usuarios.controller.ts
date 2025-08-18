@@ -1,5 +1,5 @@
 import { BaseController } from '@/modules/base/base.controller'
-import { ErrorService } from '@/modules/error/error.service'
+import { ErrorService } from '@/shared/error/error.service'
 import { QueryParams } from '@/shared/QueryParams'
 import { Controller } from '@nestjs/common'
 import { UsuariosService } from './usuarios.service'

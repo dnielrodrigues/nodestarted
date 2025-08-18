@@ -1,9 +1,9 @@
 import { AppController } from '@/app.controller'
 import { AppService } from '@/app.service'
 import { BaseModule } from '@/modules/base/base.module'
-import { ErrorModule } from '@/modules/error/error.module'
 import { UsuariosModule } from '@/modules/usuarios/usuarios.module'
 import { DatabaseModule } from '@/shared/database/database.module'
+import { ErrorModule } from '@/shared/error/error.module'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 

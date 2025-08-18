@@ -1,5 +1,5 @@
-import { ErrorService } from '@/modules/error/error.service'
 import { UUIDPipe } from '@/pipes/uuid.pipe'
+import { ErrorService } from '@/shared/error/error.service'
 import { QueryParams } from '@/shared/QueryParams'
 import {
   Body,
