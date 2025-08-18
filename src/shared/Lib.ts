@@ -2,6 +2,7 @@ export default {
   debug,
   isJsonString,
   isArray,
+  isArrayString,
   isPlainObject,
   copyObjData,
   filterObject,
@@ -32,8 +33,8 @@ export function isString(str: any) {
   return typeof str === 'string' || str instanceof String
 }
 
-// TODO - refactor
-export function isArray(str: string): boolean {
+// test array string
+export function isArrayString(str: string): boolean {
   try {
     const arr = JSON.parse(str) as unknown
     if (Array.isArray(arr)) return true
@@ -41,6 +42,10 @@ export function isArray(str: string): boolean {
     return false
   }
   return true
+}
+
+export function isArray(arr: any): boolean {
+  return Array.isArray(arr)
 }
 
 // test plain object

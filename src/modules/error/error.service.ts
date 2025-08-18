@@ -10,29 +10,13 @@ export class ErrorService {
     const envMode = this.configService.get('NODE_ENV') || 'development'
     if (envMode === 'development') console.log(error)
 
-    // user not found
-    // if (error.code === 'auth/user-not-found')
-    //   return { json: { error: error.code }, status: 404 }
-
-    // invalid UID of a requisition
-    // if (error.code === 'auth/invalid-uid')
-    //   return { json: { error: error.code }, status: 404 }
-
-    // invalid password
-    // if (error.code === 'auth/invalid-password')
-    //   return { json: { error: error.code }, status: 401 }
-
-    // invalid access token
-    // if (error.codePrefix === 'auth')
-    //   return { json: { error: 'access_denied' }, status: 401 }
-
-    // firebase authentication
-    // if (typeof error.code === 'string')
-    //   return { json: { error: error.code }, status: 401 }
-
-    // firestore error
-    if (error.errorCode === 'firestore/unknow')
-      return { json: { error: 'firestore_unknow' }, status: 400 }
+    // not found
+    if (error === 'not_founded' || error.error === 'not_founded') {
+      return {
+        json: { error: 'not_founded' },
+        status: 404
+      }
+    }
 
     // invalid param
     if (error === 'invalid_param' || error.error === 'invalid_param') {

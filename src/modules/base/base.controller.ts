@@ -77,7 +77,8 @@ export class BaseController {
         .get()
       delete opt.take
       const result = await this.service.get(opt)
-      res.status(200).json(result)
+      if (result) res.status(200).json(result)
+      else throw { error: 'not_founded' }
     } catch (error) {
       this.errors.response(error, res)
     }
@@ -85,15 +86,15 @@ export class BaseController {
 
   // insert
   @Post()
-  create(
+  async create(
     @Param('model') model: string,
     @Req() req: Request,
     @Res() res: Response
-  ) {
+  ): Promise<any> {
     // TODO - middleware
     try {
       this.service.setModel(model)
-      const result = this.service.save(req.body)
+      const result = await this.service.save(req.body)
       res.status(200).json(result)
     } catch (error) {
       this.errors.response(error, res)
@@ -102,16 +103,16 @@ export class BaseController {
 
   // update
   @Put(':id')
-  update(
+  async update(
     @Param() { model, id }: { model: string; id: string },
     @Body() body: any,
     @Res() res: Response
-  ): any {
+  ): Promise<any> {
     // TODO - middleware
     try {
       const obj = { ...body, id }
       this.service.setModel(model)
-      const result = this.service.save(obj)
+      const result = await this.service.save(obj)
       res.status(200).json(result)
     } catch (error) {
       this.errors.response(error, res)
@@ -120,15 +121,15 @@ export class BaseController {
 
   // delete
   @Delete(':id')
-  delete(
+  async delete(
     @Param('id', UUIDPipe) id: string,
     @Param('model') model: string,
     @Res() res: Response
-  ): any {
+  ): Promise<any> {
     // TODO - middleware
     try {
       this.service.setModel(model)
-      const result = this.service.delete(id)
+      const result = await this.service.delete(id)
       res.status(200).json(result)
     } catch (error) {
       this.errors.response(error, res)

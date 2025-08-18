@@ -11,12 +11,17 @@ export class BaseService {
   // readers
   async get(opt: any) {
     const model = this.db.getModel(this.model)
-    return await model.findUnique(opt)
+    const result = await model.findUnique(opt)
+    if (result) return this.format(result)
+    else throw { error: 'not_founded' }
   }
 
   async list(opt?: object) {
     const model = this.db.getModel(this.model)
-    return await model.findMany(opt)
+    const result = await model.findMany(opt)
+    if (Array.isArray(result)) {
+      return result.map((obj) => this.format(obj))
+    } else throw { error: 'not_founded' }
   }
 
   // actions
@@ -33,8 +38,18 @@ export class BaseService {
     return this.afterSave(saved)
   }
 
-  delete(id: string) {
-    return { model: this.model, id }
+  async delete(id: string) {
+    const model = this.db.getModel(this.model)
+    return await model.delete({ where: { id } })
+  }
+
+  // input/output
+  format(data: any) {
+    return data
+  }
+
+  parse(data: any) {
+    return data
   }
 
   // events
