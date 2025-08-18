@@ -40,7 +40,9 @@ export class BaseService {
 
   async delete(id: string) {
     const model = this.db.getModel(this.model)
-    return await model.delete({ where: { id } })
+    const result = await model.delete({ where: { id } })
+    if (result) return this.format(result)
+    else throw { error: 'not_founded' }
   }
 
   // input/output
@@ -54,19 +56,19 @@ export class BaseService {
 
   // events
   beforeSave(data: any) {
-    return data
+    return this.parse(data)
   }
 
   afterSave(saved: any) {
-    return saved
+    return this.format(saved)
   }
 
   beforeDelete(data: any) {
-    return data
+    return this.parse(data)
   }
 
   afterDelete(deleted: any) {
-    return deleted
+    return this.format(deleted)
   }
 
   // getters/setters

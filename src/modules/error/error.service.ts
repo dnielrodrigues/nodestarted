@@ -34,6 +34,12 @@ export class ErrorService {
     if (error === 'not_found' || error.error === 'not_found')
       return { json: { error: 'not_found' }, status: 404 }
 
+    if (
+      error.name === 'PrismaClientKnownRequestError' &&
+      error.meta?.cause === 'No record was found for a delete.'
+    )
+      return { json: { error: 'not_found' }, status: 404 }
+
     // database error
     if (error.name === 'PrismaClientValidationError')
       return { json: { error: 'database_invalid_query' }, status: 400 }
