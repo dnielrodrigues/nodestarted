@@ -1,6 +1,6 @@
 import { UUIDPipe } from '@/pipes/uuid.pipe'
 import { ErrorService } from '@/shared/error/error.service'
-import { QueryParams } from '@/shared/QueryParams'
+import { QueryParamsService } from '@/shared/query-params/query-params.service'
 import {
   Body,
   Controller,
@@ -17,10 +17,9 @@ import { BaseService } from './base.service'
 
 @Controller(':model')
 export class BaseController {
-  queryParams = new QueryParams()
-
   constructor(
     private readonly service: BaseService,
+    private readonly query: QueryParamsService,
     private errors: ErrorService
   ) {}
 
@@ -34,7 +33,7 @@ export class BaseController {
     // TODO - middleware
     try {
       this.service.setModel(model)
-      const params = this.queryParams.parseParams(req.query)
+      const params = this.query.parseParams(req.query)
       const result = await this.service.list(params)
       res.status(200).json(result)
     } catch (error) {
@@ -52,7 +51,7 @@ export class BaseController {
     // TODO - middleware
     try {
       this.service.setModel(model)
-      const params = this.queryParams.parseParams(req.body)
+      const params = this.query.parseParams(req.body)
       const result = await this.service.list(params)
       res.status(200).json(result)
     } catch (error) {
@@ -71,7 +70,7 @@ export class BaseController {
     // TODO - middleware
     try {
       this.service.setModel(model)
-      const opt = this.queryParams
+      const opt = this.query
         .formatInclude({ include: req.query.include })
         .formatWhere({ where: { id } })
         .get()

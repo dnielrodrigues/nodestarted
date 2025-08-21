@@ -1,6 +1,8 @@
 import { isJsonString, isString } from '@/shared/Lib'
+import { Injectable } from '@nestjs/common'
 
-export class QueryParams {
+@Injectable()
+export class QueryParamsService {
   take?: number
   skip?: number
   orderBy?: object
