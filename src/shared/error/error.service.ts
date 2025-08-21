@@ -34,12 +34,25 @@ export class ErrorService {
     if (error === 'not_found' || error.error === 'not_found')
       return { json: { error: 'not_found' }, status: 404 }
 
+    // ORM errors
     if (error.name === 'PrismaClientKnownRequestError') {
+      // not founded
       if (
         error.meta?.cause === 'No record was found for a delete.' ||
         error.meta?.cause === 'No record was found for an update.'
       )
         return { json: { error: 'not_found' }, status: 404 }
+      // duplicate item
+      if (error.code === 'P2002') {
+        if (error.meta?.target[0])
+          return {
+            json: { error: 'duplicate_entry', param: error.meta.target[0] },
+            status: 400
+          }
+        else return { json: { error: 'duplicate_entry' }, status: 400 }
+      }
+      // wrong request
+      else return { json: { error: 'bad_request' }, status: 400 }
     }
 
     // database error

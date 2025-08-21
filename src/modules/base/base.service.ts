@@ -40,8 +40,9 @@ export class BaseService {
 
   async delete(id: string) {
     const model = this.db.getModel(this.model)
-    const result = await model.delete({ where: { id } })
-    if (result) return this.format(result)
+    const opt = this.beforeDelete(id)
+    const result = await model.delete(opt)
+    if (result?.id) return this.afterDelete(result)
     else throw { error: 'not_founded' }
   }
 
@@ -63,12 +64,12 @@ export class BaseService {
     return this.format(saved)
   }
 
-  beforeDelete(data: any) {
-    return this.parse(data)
+  beforeDelete(id: any) {
+    return { where: { id } }
   }
 
   afterDelete(deleted: any) {
-    return this.format(deleted)
+    return { id: deleted.id || 'unknown' }
   }
 
   // getters/setters
