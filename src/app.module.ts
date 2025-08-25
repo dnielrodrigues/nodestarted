@@ -1,5 +1,6 @@
 import { AppController } from '@/app.controller'
 import { AppService } from '@/app.service'
+import { AuthModule } from '@/modules/auth/auth.module'
 import { BaseModule } from '@/modules/base/base.module'
 import { UsuariosModule } from '@/modules/usuarios/usuarios.module'
 import { DatabaseModule } from '@/shared/database/database.module'
@@ -10,12 +11,13 @@ import { ConfigModule } from '@nestjs/config'
 
 @Module({
   imports: [
+    ConfigModule.forRoot(), // load .env vars
+    DatabaseModule,
     UsuariosModule,
+    AuthModule,
     BaseModule,
     ErrorModule,
-    QueryParamsModule,
-    DatabaseModule,
-    ConfigModule.forRoot() // load .env vars
+    QueryParamsModule
   ],
   controllers: [AppController],
   providers: [AppService]

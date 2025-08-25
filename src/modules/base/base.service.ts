@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class BaseService {
-  constructor(private readonly db: DatabaseService) {}
+  constructor(protected readonly db: DatabaseService) {}
 
   model: string
   errorModel = { error: 'invalid_param', param: 'model' }
