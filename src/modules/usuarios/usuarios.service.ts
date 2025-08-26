@@ -5,6 +5,7 @@ import { Injectable } from '@nestjs/common'
 export class UsuariosService extends BaseService {
   model = 'usuarios'
 
+  // accessors
   format(data: any) {
     delete data.pass
     delete data.token
@@ -12,6 +13,14 @@ export class UsuariosService extends BaseService {
   }
 
   parse(data: any) {
+    // const hashedPassword = await bcrypt.hash(data.password || 'secret', 10)
+    // if (data.password) data.password = hashedPassword
     return data
+  }
+
+  // just inner use
+  async findByEmail(email: string) {
+    const model = this.db.getModel('usuarios')
+    return await model.findUnique({ where: { email } })
   }
 }
