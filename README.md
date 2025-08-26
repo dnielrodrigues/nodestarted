@@ -57,6 +57,26 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Running the database
+
+To start the PostgreSQL database, you can use the provided Docker Compose setup:  
+```bash
+# Start the database in detached mode
+$ docker-compose up -d
+```
+
+To stop the database:  
+```bash
+# Stop the database
+$ docker-compose down
+```
+
+To create an initial database with one root user:  
+```bash
+# Create database
+./database/init.sh
+```
+
 ## About UUID
 
 Config UUID on postgresql:

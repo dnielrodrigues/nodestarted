@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:13
+    container_name: hub_db
+    restart: always
+    environment:
+      POSTGRES_DB: hub
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "15432:5432"
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+      - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

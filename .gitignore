@@ -58,3 +58,5 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # database files
 /database/run.sql
 /generated/prisma
+/database/data
+/database/docker-entrypoint-initdb.d

@@ -19,8 +19,11 @@ export class UsuariosService extends BaseService {
   }
 
   // just inner use
-  async findByEmail(email: string) {
+  async findByEmail(
+    email: string,
+    opt = { include: { permissoes: { include: { acoes: true } } } }
+  ) {
     const model = this.db.getModel('usuarios')
-    return await model.findUnique({ where: { email } })
+    return await model.findUnique({ where: { email }, ...opt })
   }
 }

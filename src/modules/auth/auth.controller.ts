@@ -16,8 +16,8 @@ export class AuthController {
 
   @Post('login')
   async login(@Req() req: Request) {
-    const { email, password }: any = req.body
-    const user = await this.authService.validateUser(email, password)
+    const { email, pass }: any = req.body
+    const user = await this.authService.validateUser(email, pass)
     if (!user) throw new UnauthorizedException('access_denied')
     return this.authService.login(user)
   }
