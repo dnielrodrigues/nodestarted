@@ -1,7 +1,7 @@
 import { isJsonString, isString } from '@/shared/Lib'
 import { Injectable, Scope } from '@nestjs/common'
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable({ scope: Scope.REQUEST }) // scope REQUEST = solve shared state problem
 export class QueryParamsService {
   take?: number
   skip?: number

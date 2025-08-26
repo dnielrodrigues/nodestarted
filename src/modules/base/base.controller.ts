@@ -1,3 +1,4 @@
+import { AuthGuard } from '@/guards/auth.guard'
 import { UUIDPipe } from '@/pipes/uuid.pipe'
 import { ErrorService } from '@/shared/error/error.service'
 import { QueryParamsService } from '@/shared/query-params/query-params.service'
@@ -10,12 +11,14 @@ import {
   Post,
   Put,
   Req,
-  Res
+  Res,
+  UseGuards
 } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { BaseService } from './base.service'
 
 @Controller(':model')
+@UseGuards(AuthGuard)
 export class BaseController {
   constructor(
     private readonly service: BaseService,
@@ -59,7 +62,7 @@ export class BaseController {
     }
   }
 
-  // select by id
+  // get by id
   @Get(':id')
   async get(
     @Param('id', UUIDPipe) id: string,
