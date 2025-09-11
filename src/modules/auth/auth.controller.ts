@@ -24,6 +24,8 @@ export class AuthController {
 
   @Post('register')
   async register(@Req() req: Request) {
+    const env = process.env.NODE_ENV
+    if (env !== 'development') return
     return this.authService.register(req.body)
   }
 
