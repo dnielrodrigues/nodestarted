@@ -30,7 +30,6 @@ CREATE TABLE aplicativos (
 CREATE TABLE entidades (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   nome VARCHAR(255) NOT NULL,
-  cod VARCHAR(8) UNIQUE NOT NULL,
   doc VARCHAR(14) UNIQUE,
 
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -40,6 +39,7 @@ CREATE TABLE entidades (
 CREATE TABLE acoes(
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   nome VARCHAR(255) NOT NULL,
+  descr VARCHAR(512),
   aplicativo_id UUID NOT NULL,
   path VARCHAR(255),
   method VARCHAR(7),
@@ -66,26 +66,6 @@ CREATE TABLE permissoes(
   FOREIGN KEY (entidade_id) REFERENCES entidades(id) ON DELETE CASCADE,
   FOREIGN KEY (acao_id) REFERENCES acoes(id) ON DELETE CASCADE,
   CONSTRAINT unique_usuario_permission UNIQUE (usuario_id, aplicativo_id, entidade_id, acao_id)
-);
-
-INSERT INTO usuarios (
-  id,
-  nome,
-  login,
-  email,
-  doc,
-  pass,
-  createdAt,
-  updatedAt
-) VALUES(
-  '28595aed-992b-432f-87a2-438396344ed2',
-  'root',
-  'root',
-  'admin@aspec.com.br',
-  '00123456789',
-  '$2b$10$mdXQWq/Ed80Ermq2.PfYpOYP.gSd1hd8pfkEUExMkbtv.wUCg.2lq',
-  '2025-08-26 05:56:16.939',
-  '2025-08-26 05:56:16.939'
 );
 
 COMMIT;

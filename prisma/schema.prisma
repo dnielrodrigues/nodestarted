@@ -10,6 +10,7 @@ datasource db {
 model acoes {
   id            String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   nome          String       @db.VarChar(255)
+  descr         String?      @db.VarChar(512)
   aplicativo_id String       @db.Uuid
   path          String?      @db.VarChar(255)
   method        String?      @db.VarChar(7)
@@ -34,7 +35,6 @@ model aplicativos {
 model entidades {
   id         String       @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
   nome       String       @db.VarChar(255)
-  cod        String       @unique @db.VarChar(8)
   doc        String?      @unique @db.VarChar(14)
   createdat  DateTime     @default(now()) @db.Timestamp(6)
   updatedat  DateTime     @updatedAt @db.Timestamp(6)

@@ -7,8 +7,8 @@ async function bootstrap() {
 
   // swagger documentation
   const config = new DocumentBuilder()
-    .setTitle('API title')
-    .setDescription('The API description')
+    .setTitle('Aspec Authentication')
+    .setDescription('Serviço de autenticação multi-plataforma Aspec.')
     .setVersion('1.0')
     .addTag('aspec')
     .build()
