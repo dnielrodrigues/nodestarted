@@ -1,4 +1,5 @@
 import { AuthGuard } from '@/guards/auth.guard'
+import { BaseGuard } from '@/guards/base.guard'
 import { UUIDPipe } from '@/pipes/uuid.pipe'
 import { ErrorService } from '@/shared/error/error.service'
 import { QueryParamsService } from '@/shared/query-params/query-params.service'
@@ -18,7 +19,7 @@ import { Request, Response } from 'express'
 import { BaseService } from './base.service'
 
 @Controller(':model')
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, BaseGuard)
 export class BaseController {
   constructor(
     private readonly service: BaseService,

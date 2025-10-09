@@ -19,11 +19,11 @@ export class AuthService {
   }
 
   login(user: any) {
-    const { email, id, nome, permissoes } = user
-    const payload = { email, id, nome, permissoes } // TODO - reduzir apenas aos IDs
+    const { email, id, nome, aplicativos } = user
+    const payload = { email, id, nome, aplicativos }
     const res = {
       access_token: this.jwtService.sign(payload),
-      user: { email, id, nome, permissoes }
+      user: payload
     }
     return res
   }
